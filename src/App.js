@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import Card from './components/Card'
+
+import { CardWrapper } from './components/Card.styles'
+import Header from './components/Header'
+import MainContainer from './styles/MainContainer.styles'
+
+const cardImages = [
+  { src: '/img/harrypotter.jpg' },
+  { src: '/img/albusdumbledore.jpg' },
+  { src: '/img/dracomalfoy.jpg' },
+  { src: '/img/hermionegranger.jpg' },
+  { src: '/img/lordwoldemort.jpg' },
+  { src: '/img/ronweasley.jpg' },
+  { src: '/img/rubeushagrid.jpg' },
+  { src: '/img/severussnape.jpg' }
+]
 
 function App() {
+  const [cards, setCards] = useState([])
+  const [turns, setTurns] = useState(0)
+
+  const shuffleCards = () => {
+    const shuffledCards = [...cardImages, ...cardImages]
+      .sort(() => Math.random() - 0.5)
+      .map((card, index) => ({
+        ...card,
+        id: index + 1
+      }))
+
+    setCards(shuffledCards)
+    setTurns(0)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <MainContainer>
+      <Header shuffleCards={shuffleCards} />
+      <CardWrapper>
+        {cards && cards.map((card) => <Card key={card.id} src={card.src} />)}
+      </CardWrapper>
+    </MainContainer>
+  )
 }
 
-export default App;
+export default App
