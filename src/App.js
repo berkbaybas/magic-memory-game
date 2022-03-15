@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Card from './components/Card'
 
-import { CardWrapper } from './components/Card.styles'
+import { CardWrapper } from './styles/Card.styles'
 import Header from './components/Header'
 import MainContainer from './styles/MainContainer.styles'
 

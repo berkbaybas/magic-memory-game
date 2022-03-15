@@ -1,4 +1,4 @@
-import { CardImage, StyledCard } from './Card.styles'
+import { CardImage, StyledCard } from '../styles/Card.styles'
 
 function Card({ card, handleChoice, flipped }) {
   const handleClick = () => {

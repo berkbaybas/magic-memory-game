@@ -5,7 +5,7 @@ import {
   StyledButton,
   StyledTitle,
   StyledSmallTitle
-} from './Header.style'
+} from '../styles/Header.style'
 
 const StyledTurn = styled.span`
   color: white;
