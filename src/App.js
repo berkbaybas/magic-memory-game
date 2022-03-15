@@ -6,14 +6,14 @@ import Header from './components/Header'
 import MainContainer from './styles/MainContainer.styles'
 
 const cardImages = [
-  { src: '/img/harrypotter.jpg' },
-  { src: '/img/albusdumbledore.jpg' },
-  { src: '/img/dracomalfoy.jpg' },
-  { src: '/img/hermionegranger.jpg' },
-  { src: '/img/lordwoldemort.jpg' },
-  { src: '/img/ronweasley.jpg' },
-  { src: '/img/rubeushagrid.jpg' },
-  { src: '/img/severussnape.jpg' }
+  { src: '/img/harrypotter.jpg', matched: false, flipped: false },
+  { src: '/img/albusdumbledore.jpg', matched: false, flipped: false },
+  { src: '/img/dracomalfoy.jpg', matched: false, flipped: false },
+  { src: '/img/hermionegranger.jpg', matched: false, flipped: false },
+  { src: '/img/lordwoldemort.jpg', matched: false, flipped: false },
+  { src: '/img/ronweasley.jpg', matched: false, flipped: false },
+  { src: '/img/rubeushagrid.jpg', matched: false, flipped: false },
+  { src: '/img/severussnape.jpg', matched: false, flipped: false }
 ]
 
 function App() {
@@ -34,14 +34,49 @@ function App() {
     setTurns(0)
   }
 
-  const handleChoice = (card) => {
-    choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
+  const handleChoice = (clickedCard) => {
+    const flippedCardCount = cards.reduce((cur, card) => {
+      return card.flipped === true ? cur + 1 : cur
+    }, 0)
+
+    console.log(flippedCardCount)
+
+    if (flippedCardCount >= 2) {
+      setCards((prevCards) => {
+        return prevCards.map((card) => ({ ...card, flipped: false }))
+      })
+    }
+
+    if (choiceOne) {
+      setChoiceTwo(clickedCard)
+    } else {
+      setChoiceOne(clickedCard)
+    }
+    setCards((prevCards) => {
+      return prevCards.map((c) => {
+        if (c.id === clickedCard.id) {
+          console.log(c)
+          return { ...c, flipped: true }
+        } else {
+          return c
+        }
+      })
+    })
   }
 
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       if (choiceOne.src === choiceTwo.src) {
-        console.log('match')
+        setCards((prevCards) => {
+          return prevCards.map((card) => {
+            if (card.src === choiceOne.src) {
+              return { ...card, matched: true }
+            } else {
+              return card
+            }
+          })
+        })
+
         resetTurn()
       } else {
         console.log("don't match")
@@ -49,6 +84,8 @@ function App() {
       }
     }
   }, [choiceOne, choiceTwo])
+
+  console.log(cards)
 
   const resetTurn = () => {
     setChoiceOne(null)
@@ -62,7 +99,12 @@ function App() {
       <CardWrapper>
         {cards &&
           cards.map((card) => (
-            <Card key={card.id} card={card} handleChoice={handleChoice} />
+            <Card
+              key={card.id}
+              card={card}
+              handleChoice={handleChoice}
+              flipped={card.flipped}
+            />
           ))}
       </CardWrapper>
     </MainContainer>
