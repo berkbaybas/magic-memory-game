@@ -20,10 +20,6 @@ function Header({ shuffleCards, resetTurn, turns, gameStatus, setGameStatus }) {
     setHighestScore(Number(localStorage.getItem('highestScore')))
   }, [])
 
-  useEffect(() => {
-    console.log('highestScore', highestScore)
-  }, [highestScore])
-
   return (
     <HeaderWrapper>
       {!gameStatus && <StyledTitle>Magic Memory Game</StyledTitle>}
