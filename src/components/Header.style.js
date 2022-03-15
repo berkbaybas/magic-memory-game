@@ -14,6 +14,12 @@ export const StyledTitle = styled.h1`
   margin-bottom: 32px;
 `
 
+export const StyledSmallTitle = styled.h3`
+  color: white;
+  font-size: 24px;
+  margin-bottom: 16px;
+`
+
 export const StyledButton = styled.button`
   padding: 16px;
   width: 128px;

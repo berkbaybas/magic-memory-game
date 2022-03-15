@@ -21,6 +21,7 @@ function App() {
   const [turns, setTurns] = useState(0)
   const [choiceOne, setChoiceOne] = useState(null)
   const [choiceTwo, setChoiceTwo] = useState(null)
+  const [win, setWin] = useState(false)
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -39,9 +40,8 @@ function App() {
       return card.flipped === true ? cur + 1 : cur
     }, 0)
 
-    console.log(flippedCardCount)
-
     if (flippedCardCount >= 2) {
+      // reset flipped
       setCards((prevCards) => {
         return prevCards.map((card) => ({ ...card, flipped: false }))
       })
@@ -55,7 +55,6 @@ function App() {
     setCards((prevCards) => {
       return prevCards.map((c) => {
         if (c.id === clickedCard.id) {
-          console.log(c)
           return { ...c, flipped: true }
         } else {
           return c
@@ -67,6 +66,7 @@ function App() {
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       if (choiceOne.src === choiceTwo.src) {
+        // match
         setCards((prevCards) => {
           return prevCards.map((card) => {
             if (card.src === choiceOne.src) {
@@ -79,13 +79,26 @@ function App() {
 
         resetTurn()
       } else {
-        console.log("don't match")
+        // dont match
         resetTurn()
       }
     }
   }, [choiceOne, choiceTwo])
 
-  console.log(cards)
+  useEffect(() => {
+    if (cards.length === 0) {
+      return
+    }
+
+    const unMatchingCard = cards.filter((card) => card.matched === false)
+    console.log(unMatchingCard)
+    if (unMatchingCard.length === 0) {
+      // win game
+      localStorage.setItem('highestScore', turns.toString())
+      setWin(true)
+      console.log('sa')
+    }
+  }, [cards, turns])
 
   const resetTurn = () => {
     setChoiceOne(null)
@@ -95,7 +108,13 @@ function App() {
 
   return (
     <MainContainer>
-      <Header shuffleCards={shuffleCards} resetTurn={resetTurn} turns={turns} />
+      <Header
+        shuffleCards={shuffleCards}
+        resetTurn={resetTurn}
+        turns={turns}
+        gameStatus={win}
+        setGameStatus={setWin}
+      />
       <CardWrapper>
         {cards &&
           cards.map((card) => (
