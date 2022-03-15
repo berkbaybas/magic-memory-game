@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Card from './components/Card'
 
 import { CardWrapper } from './components/Card.styles'
@@ -19,6 +19,8 @@ const cardImages = [
 function App() {
   const [cards, setCards] = useState([])
   const [turns, setTurns] = useState(0)
+  const [choiceOne, setChoiceOne] = useState(null)
+  const [choiceTwo, setChoiceTwo] = useState(null)
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -32,11 +34,36 @@ function App() {
     setTurns(0)
   }
 
+  const handleChoice = (card) => {
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
+  }
+
+  useEffect(() => {
+    if (choiceOne && choiceTwo) {
+      if (choiceOne.src === choiceTwo.src) {
+        console.log('match')
+        resetTurn()
+      } else {
+        console.log("don't match")
+        resetTurn()
+      }
+    }
+  }, [choiceOne, choiceTwo])
+
+  const resetTurn = () => {
+    setChoiceOne(null)
+    setChoiceTwo(null)
+    setTurns((prevState) => prevState + 1)
+  }
+
   return (
     <MainContainer>
-      <Header shuffleCards={shuffleCards} />
+      <Header shuffleCards={shuffleCards} resetTurn={resetTurn} />
       <CardWrapper>
-        {cards && cards.map((card) => <Card key={card.id} src={card.src} />)}
+        {cards &&
+          cards.map((card) => (
+            <Card key={card.id} card={card} handleChoice={handleChoice} />
+          ))}
       </CardWrapper>
     </MainContainer>
   )
