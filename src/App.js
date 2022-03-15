@@ -95,7 +95,7 @@ function App() {
 
   return (
     <MainContainer>
-      <Header shuffleCards={shuffleCards} resetTurn={resetTurn} />
+      <Header shuffleCards={shuffleCards} resetTurn={resetTurn} turns={turns} />
       <CardWrapper>
         {cards &&
           cards.map((card) => (
