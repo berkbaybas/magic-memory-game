@@ -1,6 +1,6 @@
 # Magic Memory Game
 
-- [Demo](https://magic-memory-game-sage.vercel.app/). 
+- [Demo](https://magic-memory-game-berkbaybas.vercel.app). 
 
 ## Tools
 
