@@ -1,0 +1,12 @@
+{
+  "cardImages": [
+    { "src": "/img/harrypotter.jpg", "matched": false, "flipped": false },
+    { "src": "/img/albusdumbledore.jpg", "matched": false, "flipped": false },
+    { "src": "/img/dracomalfoy.jpg", "matched": false, "flipped": false },
+    { "src": "/img/hermionegranger.jpg", "matched": false, "flipped": false },
+    { "src": "/img/lordwoldemort.jpg", "matched": false, "flipped": false },
+    { "src": "/img/ronweasley.jpg", "matched": false, "flipped": false },
+    { "src": "/img/rubeushagrid.jpg", "matched": false, "flipped": false },
+    { "src": "/img/severussnape.jpg", "matched": false, "flipped": false }
+  ]
+}

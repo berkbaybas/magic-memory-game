@@ -18,7 +18,7 @@ function Header({ shuffleCards, resetTurn, turns, gameStatus, setGameStatus }) {
 
   useEffect(() => {
     setHighestScore(Number(localStorage.getItem('highestScore')))
-  }, [])
+  })
 
   return (
     <HeaderWrapper>

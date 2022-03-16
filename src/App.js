@@ -5,16 +5,7 @@ import { CardWrapper } from './styles/Card.styles'
 import Header from './components/Header'
 import MainContainer from './styles/MainContainer.styles'
 
-const cardImages = [
-  { src: '/img/harrypotter.jpg', matched: false, flipped: false },
-  { src: '/img/albusdumbledore.jpg', matched: false, flipped: false },
-  { src: '/img/dracomalfoy.jpg', matched: false, flipped: false },
-  { src: '/img/hermionegranger.jpg', matched: false, flipped: false },
-  { src: '/img/lordwoldemort.jpg', matched: false, flipped: false },
-  { src: '/img/ronweasley.jpg', matched: false, flipped: false },
-  { src: '/img/rubeushagrid.jpg', matched: false, flipped: false },
-  { src: '/img/severussnape.jpg', matched: false, flipped: false }
-]
+import data from './utils/data.json'
 
 function App() {
   const [cards, setCards] = useState([])
@@ -24,7 +15,7 @@ function App() {
   const [win, setWin] = useState(false)
 
   const shuffleCards = () => {
-    const shuffledCards = [...cardImages, ...cardImages]
+    const shuffledCards = [...data.cardImages, ...data.cardImages]
       .sort(() => Math.random() - 0.5)
       .map((card, index) => ({
         ...card,
@@ -52,12 +43,14 @@ function App() {
     } else {
       setChoiceOne(clickedCard)
     }
+
+    // flip clicked one
     setCards((prevCards) => {
-      return prevCards.map((c) => {
-        if (c.id === clickedCard.id) {
-          return { ...c, flipped: true }
+      return prevCards.map((card) => {
+        if (card.id === clickedCard.id) {
+          return { ...card, flipped: true }
         } else {
-          return c
+          return card
         }
       })
     })
