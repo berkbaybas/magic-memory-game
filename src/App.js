@@ -86,7 +86,10 @@ function App() {
     const unMatchingCard = cards.filter((card) => card.matched === false)
     if (unMatchingCard.length === 0) {
       // win game
-      localStorage.setItem('highestScore', turns.toString())
+      const highestScore = localStorage.getItem('highestScore')
+      if (turns < highestScore || highestScore == null) {
+        localStorage.setItem('highestScore', turns.toString())
+      }
       setWin(true)
     }
   }, [cards, turns])
