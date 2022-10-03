@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 
 export const CardWrapper = styled.main`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
   grid-gap: 40px;
   padding: 16px;
   margin: 0 auto;
